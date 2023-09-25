@@ -35,7 +35,7 @@ public class MovementScript : MonoBehaviour
         }
         else if (isGrounded == false)
         {
-            transform.Rotate(-Vector3.forward * 0.9f);
+            transform.Rotate(-Vector3.forward * 1.2f);
         }
     }
 }
