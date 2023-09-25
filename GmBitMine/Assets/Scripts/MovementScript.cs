@@ -8,11 +8,7 @@ public class MovementScript : MonoBehaviour
 
     [SerializeField] private float jumpForce;
 
-    [SerializeField] private bool isGrounded;
-
-    [SerializeField] private Transform groundPivot;
-
-    [SerializeField] private LayerMask groundLayer;
+    public bool isGrounded;
 
     void Start()
     {
@@ -33,19 +29,13 @@ public class MovementScript : MonoBehaviour
 
     void Jump()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
         {
-            rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        else if(!IsGrounded())
+        else if (isGrounded == false)
         {
-            transform.Rotate(-Vector3.forward*0.5f);
+            transform.Rotate(-Vector3.forward * 0.9f);
         }
-        
-    }
-    bool IsGrounded()
-    {
-        isGrounded = Physics2D.OverlapCircle(groundPivot.position, 0.1f, groundLayer);
-        return isGrounded;
     }
 }
