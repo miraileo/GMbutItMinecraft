@@ -10,6 +10,8 @@ public class MovementScript : MonoBehaviour
 
     public bool isGrounded;
 
+    [SerializeField] private Transform sprite;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,7 +37,13 @@ public class MovementScript : MonoBehaviour
         }
         else if (isGrounded == false)
         {
-            transform.Rotate(-Vector3.forward * 1.2f);
+            sprite.Rotate(-Vector3.forward * 1.2f);
+        }
+        else if(isGrounded == true)
+        {
+            Vector3 Rotatation = sprite.rotation.eulerAngles;
+            Rotatation.z = Mathf.Round(Rotatation.z / 90) * 90;
+            sprite.rotation = Quaternion.Euler(Rotatation);
         }
     }
 }
