@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ColissionCheckScript : MonoBehaviour
 {
@@ -13,14 +14,15 @@ public class ColissionCheckScript : MonoBehaviour
     }
     private void Update()
     {
-        player.isGrounded = Physics2D.OverlapCircle(GroundPivot.position, 0.2f, groundLayer);
+        player.isGrounded = Physics2D.OverlapCircle(GroundPivot.position, 0.3f, groundLayer);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Ship")
         {
-            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //Debug.Log("hit");
         }
     }
 }
