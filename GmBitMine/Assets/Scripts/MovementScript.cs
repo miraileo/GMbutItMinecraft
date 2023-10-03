@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MovementScript : MonoBehaviour
 {
@@ -8,9 +9,13 @@ public class MovementScript : MonoBehaviour
 
     [SerializeField] private float jumpForce;
 
+    [SerializeField] private float flightForce;
+
     public bool isGrounded;
 
     [SerializeField] private Transform sprite;
+
+    public bool shipMode;
 
     void Start()
     {
@@ -21,12 +26,39 @@ public class MovementScript : MonoBehaviour
     void Update()
     {
         Move();
-        Jump();
+        if (shipMode == true)
+        {
+            sprite.rotation = Quaternion.Euler(0,0,0);
+            MoveOnShip();
+            rb.gravityScale = 0;
+        }
+        else
+        {
+            Jump();
+            rb.gravityScale = 8;
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     void Move()
     {
         rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+    }
+
+    void MoveOnShip()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            rb.velocity = new Vector2(moveSpeed, flightForce);
+        }
+        else
+        {
+            rb.velocity = new Vector2(moveSpeed, -5);
+        }
     }
 
     void Jump()

@@ -22,7 +22,10 @@ public class ColissionCheckScript : MonoBehaviour
         if(other.tag == "Ship")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            //Debug.Log("hit");
+        }
+        else if(other.tag == "Portal")
+        {
+            player.shipMode = true;
         }
     }
 }
